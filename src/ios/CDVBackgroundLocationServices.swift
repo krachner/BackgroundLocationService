@@ -212,7 +212,6 @@ var activityCommandDelegate:CDVCommandDelegate?;
     }
     
     func willTerminate() {
-        locationManager.informUserBackground();
     }
 
     /* Pinpoint our location with the following accuracy:
@@ -373,11 +372,6 @@ class LocationManager : NSObject, CLLocationManagerDelegate {
         distanceFilter = 0;
     }
     
-    func informUserBackground() {
-            var msg = "Keep your app open to enable tracking services.";
-            log(message: msg);
-            NotificationManager.manager.notify(text: msg);
-    }
 
     // Force here is to make sure we are only starting the location updates once, until we want to restart them
     // Was having issues with it starting, and then starting a second time through resign on some builds.
