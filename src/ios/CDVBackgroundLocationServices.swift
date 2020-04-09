@@ -74,6 +74,12 @@ var activityCommandDelegate:CDVCommandDelegate?;
             selector: Selector("willResign"),
             name: NSNotification.Name.UIApplicationWillResignActive,
             object: nil);
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: Selector("willTerminate"),
+            name: NSNotification.Name.applicationWillTerminate,
+            object: nil);
     }
 
     // 0 distanceFilter,
@@ -200,8 +206,19 @@ var activityCommandDelegate:CDVCommandDelegate?;
         background = true;
 
         if(enabled) {
-            locationManager.startUpdating(force: true);
+            locationManager.startUpdating(force: false);
             activityManager.startDetection();
+        }
+    }
+    
+    func willTerminate() {
+        log(message: "App Will Terminate. Enabled? \(enabled)");
+        background = true;
+
+        if(enabled) {
+            var msg = "Keep your app open to enable tracking services.";
+            log(message: msg);
+            NotificationManager.manager.notify(text: msg);
         }
     }
 
