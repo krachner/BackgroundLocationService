@@ -74,12 +74,6 @@ var activityCommandDelegate:CDVCommandDelegate?;
             selector: Selector("willResign"),
             name: NSNotification.Name.UIApplicationWillResignActive,
             object: nil);
-        
-        NotificationCenter.default.addObserver(
-            self,
-            selector: Selector("willTerminate"),
-            name: NSNotification.Name.applicationWillTerminate,
-            object: nil);
     }
 
     // 0 distanceFilter,
@@ -209,9 +203,6 @@ var activityCommandDelegate:CDVCommandDelegate?;
             locationManager.startUpdating(force: false);
             activityManager.startDetection();
         }
-    }
-    
-    func willTerminate() {
     }
 
     /* Pinpoint our location with the following accuracy:
