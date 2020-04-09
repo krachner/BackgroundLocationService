@@ -212,14 +212,7 @@ var activityCommandDelegate:CDVCommandDelegate?;
     }
     
     func willTerminate() {
-        log(message: "App Will Terminate. Enabled? \(enabled)");
-        background = true;
-
-        if(enabled) {
-            var msg = "Keep your app open to enable tracking services.";
-            log(message: msg);
-            NotificationManager.manager.notify(text: msg);
-        }
+        locationManager.informUserBackground();
     }
 
     /* Pinpoint our location with the following accuracy:
@@ -378,6 +371,12 @@ class LocationManager : NSObject, CLLocationManagerDelegate {
         syncSeconds = 1;
         desiredAccuracy = kCLLocationAccuracyBest;
         distanceFilter = 0;
+    }
+    
+    func informUserBackground() {
+            var msg = "Keep your app open to enable tracking services.";
+            log(message: msg);
+            NotificationManager.manager.notify(text: msg);
     }
 
     // Force here is to make sure we are only starting the location updates once, until we want to restart them
