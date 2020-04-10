@@ -179,7 +179,8 @@ var activityCommandDelegate:CDVCommandDelegate?;
     //State Methods
     func onResume() {
         log(message: "App Resumed");
-        background = false;
+        //background = false;
+        background = true;
 
         //taskManager.endAllBackgroundTasks();
         //locationManager.stopUpdating();
