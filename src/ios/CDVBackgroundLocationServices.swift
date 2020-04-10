@@ -55,7 +55,7 @@ var activityCommandDelegate:CDVCommandDelegate?;
         super.pluginInitialize();
 
         locationManager.requestLocationPermissions();
-        self.promptForNotificationPermission();
+        //self.promptForNotificationPermission();
 
         NotificationCenter.default.addObserver(
             self,
@@ -108,6 +108,10 @@ var activityCommandDelegate:CDVCommandDelegate?;
 
         let pluginResult = CDVPluginResult(status: CDVCommandStatus_OK)
         commandDelegate!.send(pluginResult, callbackId:command.callbackId)
+        
+        if(debug){
+            self.promptForNotificationPermission();
+        }
     }
 
     open func registerForLocationUpdates(_ command: CDVInvokedUrlCommand) {
@@ -180,9 +184,14 @@ var activityCommandDelegate:CDVCommandDelegate?;
         log(message: "App Resumed");
         background = false;
 
-        taskManager.endAllBackgroundTasks();
-        locationManager.stopUpdating();
-        activityManager.stopDetection();
+        //taskManager.endAllBackgroundTasks();
+        //locationManager.stopUpdating();
+        //activityManager.stopDetection();
+        
+        if(enabled) {
+            locationManager.startUpdating(force: false);
+            activityManager.startDetection();
+        }
     }
 
     func onSuspend() {
